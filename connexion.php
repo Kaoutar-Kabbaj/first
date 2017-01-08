@@ -12,7 +12,7 @@ $options = array(
   
     $pdo = new PDO($dsn, $username, $password, $options);
 
-
+var_dump($pdo);
 if(!$pdo){
 
 	die('Could not connect: ');
@@ -22,7 +22,7 @@ else
     die('Connexion à la base de données !');
 }
 ?>
-<?php phpinfo(); ?>
+
 
 
 
