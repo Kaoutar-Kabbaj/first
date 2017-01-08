@@ -1,31 +1,37 @@
 <?php
-
-
-
-
-class DBManager{
-function getConnection(){
-$services = getenv("VCAP_SERVICES");
-$services_json = json_decode($services,true);
-$mysql_config = $services_json["mysql"][0]["credentials"];
-var_dump($mysql_config);die;s
-$db = $mysql_config["name"];
-$host = $mysql_config["host"];
-$port = $mysql_config["port"];
-$username = $mysql_config["user"];
-$password = $mysql_config["password"];
-$conn = mysql_connect($host . ':' . $port, $username, $password);
-if(! $conn ){
-die('Could not connect: ' . mysql_error());
-}
-mysql_select_db($db);
-return $conn;
-}
-
-
-}
-
-$manager = new DBManager();
-$manager->getConnection();
+  require 'user.php';
 ?>
+<html>
+  <head>
+    <title>DB Query PHP Page</title>
+  </head>
+  <body>
+    <p>SAMPLE PHP SITE</p>
+    <p>Contents of table User:</p>
+    <table border='1'>
+      <tr>
+        <td>Username</td>
+        <td>Password</td>
+        <td>Last Name</td>
+        <td>First Name</td>
+      </tr>
+    <?php 
+      //refer to user.php for the implementation of the class User 
+      $user_list = (new User())->selectAll();
 
+      foreach($user_list as $user) {
+        echo '<tr>';
+        echo '<td>'.$user->username.'</td>';
+        echo '<td>'.$user->password.'</td>';
+        echo '<td>'.$user->lastname.'</td>';
+        echo '<td>'.$user->firstname.'</td>';
+        echo '</tr>';
+      }
+    ?>
+    </table> 
+
+    <br><br>
+    Click <a href='login.php'>[here]</a> to test the login page.<br>
+
+  </body>
+</html>
