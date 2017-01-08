@@ -22,3 +22,7 @@ else
     die('Connexion à la base de données !');
 }
 ?>
+<?php phpinfo(); ?>
+
+
+
